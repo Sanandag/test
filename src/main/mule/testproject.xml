@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:crypto="http://www.mulesoft.org/schema/mule/crypto" xmlns:tls="http://www.mulesoft.org/schema/mule/tls"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd
+http://www.mulesoft.org/schema/mule/crypto http://www.mulesoft.org/schema/mule/crypto/current/mule-crypto.xsd">
+	<crypto:pgp-config name="Crypto_Pgp" doc:name="Crypto Pgp" doc:id="054e1c2f-2ea3-4c54-aa9c-330cc7935705" publicKeyring="test.gpg" privateKeyring="noreply-myaxa_0x305A82C5_SECRET.gpg">
+		<crypto:pgp-key-infos >
+			<crypto:pgp-asymmetric-key-info keyId="myAxaKeyId" principal="${principal}" passphrase="RcGPfyTF@nhLjewWp" />
+		</crypto:pgp-key-infos>
+	</crypto:pgp-config>
+		<crypto:pgp-config name="Crypto_Pgp_PROD" doc:name="Crypto Pgp" doc:id="57a38cb9-0d95-4da9-b42f-00568f517f72" publicKeyring="pgp\prod\noreply-myaxa_public.gpg" privateKeyring="pgp\prod\noreply-myaxa_SECRET.gpg">
+		<crypto:pgp-key-infos >
+			<crypto:pgp-asymmetric-key-info keyId="myAxaKeyId" principal="${principal}" passphrase="JzoHNZRP#4^r" />
+		</crypto:pgp-key-infos>
+	</crypto:pgp-config>
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="c2b59448-f22a-4914-8985-d103a57eaad3" >
+		<http:listener-connection host="0.0.0.0" port="8281" />
+	</http:listener-config>
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="3648b7e4-fe31-40a4-8a38-3c29ac846d9d" >
+		<http:request-connection host="google.com" port="80">
+			<http:proxy-config >
+				<http:proxy host="10.40.249.26" port="8080"/>
+			</http:proxy-config>
+		</http:request-connection>
+	</http:request-config>
+	<flow name="TEST1" doc:id="bfcb5e26-eb53-4296-a228-2623f4402215" >
+		<http:listener doc:name="Listener" doc:id="9aa86868-4a86-4263-adf8-8a37dcc86dda" config-ref="HTTP_Listener_config" path="/TEST1"/>
+		<ee:transform doc:name="Transform Message" doc:id="97aae87b-e338-43d2-bb59-c97d5d3728a4" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+	"value3": "{\"policyNumber\":\"04979901GH\",\"certificateNumber\":\"987\",\"email\":\"test@axa.com.hk\",\"bankAccountDetails\":{\"bankCode\":\"452\",\"branchCode\":\"005\",\"accountNumber\":\"0987653121\"},\"addressDetails\":{\"addressLine1\":\"dssadg etwr egaw\",\"addressLine2\":\"sfas SFAEFG af\",\"addressLine3\":\"wqer adsAF 34\",\"addressLine4\":\"eqw gege sfg\"},\"dependentDetails\":[{\"dependentNumber\":\"1\",\"name\":\"SO IXOJO\",\"idDocNumber\":\"MBATR\",\"idDocType\":\"PASSPORT\",\"dateOfBirth\":\"19800909\",\"coverageType\":\"HOSP\",\"hospitalCoverageAmount\":\"50000\",\"clinicCoverageAmount\":\"2000\"}]}",
+	"value4": "{\"policyNumber\":\"04001202GH\",\"certificateNumber\":\"6000719\", \"email\": \"test@axa.com.hk\",\"bankAccountDetails\":{\"bankCode\":\"452\",\"branchCode\":\"005\",\"accountNumber\":\"0987653121\"},\"addressDetails\":{\"addressLine1\":\"dssadg etwr egaw\",\"addressLine2\":\"sfas SFAEFG af\",\"addressLine3\":\"wqer adsAF 34\",\"addressLine4\":\"eqw gege sfg\"},\"dependentDetails\":[{\"dependentNumber\":\"1\",\"name\":\"asdAFV afw\",\"idDocNumber\":\"MBATR\",\"idDocType\":\"PASSPORT\",\"dateOfBirth\":\"19800909\",\"coverageType\":\"HOSP+CLIN\",\"hospitalCoverageAmount\":\"100000\",\"clinicCoverageAmount\":\"2000\"},{\"dependentNumber\":\"2\",\"name\":\"asdAFV afw\",\"idDocNumber\":\"MBATR\",\"idDocType\":\"PASSPORT\",\"dateOfBirth\":\"19800909\",\"coverageType\":\"HOSP+CLIN\",\"hospitalCoverageAmount\":\"100000\",\"clinicCoverageAmount\":\"2000\"}]}",
+	"value": "{\"policyNumber\":\"04001202GH\",\"certificateNumber\":\"A23456\", \"email\": \"test@axa.com.hk\",\"bankAccountDetails\":{\"bankCode\":\"452\",\"branchCode\":\"005\",\"accountNumber\":\"0987653121\"},\"addressDetails\":{\"addressLine1\":\"dssadg etwr egaw\",\"addressLine2\":\"sfas SFAEFG af\",\"addressLine3\":\"wqer adsAF 34\",\"addressLine4\":\"eqw gege sfg\"},\"dependentDetails\":[{\"dependentNumber\":\"1\",\"name\":\"asdAFV afw\",\"idDocNumber\":\"MBATR\",\"idDocType\":\"PASSPORT\",\"dateOfBirth\":\"19800909\",\"coverageType\":\"HOSP\",\"hospitalCoverageAmount\":\"50000\",\"clinicCoverageAmount\":\"2000\"}]}",
+	"value2":"Hello, World! "
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<crypto:pgp-encrypt doc:name="Pgp encrypt" doc:id="d13c1288-fdb3-4b33-9b34-7dcb913d6231" config-ref="Crypto_Pgp" keyId="myAxaKeyId">
+			<crypto:content ><![CDATA[#[payload.value3]]]></crypto:content>
+		</crypto:pgp-encrypt>
+		<ee:transform doc:name="base64-encryption" doc:id="6975f0a4-34a0-45ba-afdb-ccdf7087fcbf" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+import toBase64 from dw::core::Binaries
+output application/json
+---
+toBase64(payload)]]></ee:set-payload>
+			</ee:message>
+			<ee:variables >
+			</ee:variables>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="d92df3e7-d8d6-473d-8444-de0c1b6bddec" message="#[payload]"/>
+		<ee:transform doc:name="base64-decryption" doc:id="ceba1fc2-6a01-4623-a776-753d458fdc0f">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+import fromBase64 from dw::core::Binaries
+output application/octet-stream
+---
+fromBase64(payload)]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<crypto:pgp-decrypt doc:name="Pgp decrypt" doc:id="fd1efcca-1e24-4ca0-9ab7-d182b94f1000" config-ref="Crypto_Pgp"/>
+	</flow>
+	<flow name="TEST5" doc:id="7b117bf0-7106-468a-af05-f6955ada6a90" >
+		<http:listener doc:name="Copy_of_Listener" doc:id="ae143688-6881-414c-8f5b-549115981a51" config-ref="HTTP_Listener_config" path="/TEST5" />
+		<crypto:pgp-encrypt doc:name="Copy_of_Pgp encrypt" doc:id="e7722454-705e-441a-a218-6ed52dec2337" config-ref="Crypto_Pgp" keyId="myAxaKeyId" >
+		</crypto:pgp-encrypt>
+		<ee:transform doc:name="Copy_of_base64-encryption" doc:id="74c9ccd7-6b1e-4c04-aae2-dc5ac55102a1" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+import toBase64 from dw::core::Binaries
+output application/json
+---
+toBase64(payload)]]></ee:set-payload>
+			</ee:message>
+			<ee:variables />
+		</ee:transform>
+	</flow>
+	<flow name="TEST2" doc:id="92ab8b31-f2d2-4f7d-a527-cf8926326403">
+		<http:listener doc:name="Listener" doc:id="59940a49-d1b7-4fc0-a8ef-6fa5c13ceea5" config-ref="HTTP_Listener_config" path="/TEST2" />
+		<ee:transform doc:name="Transform Message" doc:id="2d4277ac-721d-4f3c-a5ae-567856cb345a">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/java
+---
+{
+	"value": "wcDMA6XcuNAwWoLFAQwAnUVZ6cwQUwlvrrTFdtQ0zgOxoFxKXalv7fT2d4n4Rtk2DIy0SLzUgbrzeFwYBvh1wc4H+ZZRes95/jpnbwS6kRbqHAR6lxbA+mC7MH07EdAf6I+saM++xHfTt1vGRFbemOrSQNrR58RmN9teJMAQtwxF9mo6wQChT3AyTT3vDgTtKvmydVseVaaB+zDqwWRbj8eFoyTxLN17WOhQ/KIKd7+qrpJjp29hQ9bP58nOkfTTpfk/Io8etqH/Cies4owwdKOAX96TZo+2SfW1eejkXXJlHBr6WEMDTummPl3i2ujdi1DzXT7I/ZXG1avCDtevL1lC257AQml3dU+/c28fQPdSBqtiT/ZHI8sfrFt4TYNlEK1w+4IXM4/v3zW7Lv4QsiPMBB0ASz/0aDiFWF426Np+5o43ZwqWFprrIfKtpF9D5w8iVpJR/w104Nevj5Ld3qNzgf9kZ8LoUJjgs8saljEw3+F0FDoEK9JslY4XZyWHr6/q/KiFxeO+MpE9RKXw0kUBXNx8Th90tIGO3Y4/hnF6ZwBAp3ZsoisTGCcqzI7mPLDdoEqJDJRdA+CD6qFHlq9ES4SQbWND5wR7imEm7M1y/Dx7ylY==1BR9",
+	"value2":"LS0tLS1CRUdJTiBQR1AgTUVTU0FHRS0tLS0tClZlcnNpb246IE9wZW5QR1AuanMgdjQuMTAuOApDb21tZW50OiBodHRwczovL29wZW5wZ3Bqcy5vcmcKd2NETUE2WGN1TkF3V29MRkFRd0FuVVZaNmN3UVV3bHZyclRGZHRRMHpnT3hvRnhLWGFsdjdmVDJkNG40ClJ0azJESXkwU0x6VWdicnplRndZQnZoMXdjNEgrWlpSZXM5NS9qcG5id1M2a1JicUhBUjZseGJBK21DNwpNSDA3RWRBZjZJK3NhTSsreEhmVHQxdkdSRmJlbU9yU1FOclI1OFJtTjl0ZUpNQVF0d3hGOW1vNndRQ2gKVDNBeVRUM3ZEZ1R0S3ZteWRWc2VWYWFCK3pEcXdXUmJqOGVGb3lUeExOMTdXT2hRL0tJS2Q3K3FycEpqCnAyOWhROWJQNThuT2tmVFRwZmsvSW84ZXRxSC9DaWVzNG93d2RLT0FYOTZUWm8rMlNmVzFlZWprWFhKbApIQnI2V0VNRFR1bW1QbDNpMnVqZGkxRHpYVDdJL1pYRzFhdkNEdGV2TDFsQzI1N0FRbWwzZFUrL2MyOGYKUVBkU0JxdGlUL1pISThzZnJGdDRUWU5sRUsxdys0SVhNNC92M3pXN0x2NFFzaVBNQkIwQVN6LzBhRGlGCldGNDI2TnArNW80M1p3cVdGcHJySWZLdHBGOUQ1dzhpVnBKUi93MTA0TmV2ajVMZDNxTnpnZjlrWjhMbwpVSmpnczhzYWxqRXczK0YwRkRvRUs5SnNsWTRYWnlXSHI2L3EvS2lGeGVPK01wRTlSS1h3MGtVQlhOeDgKVGg5MHRJR08zWTQvaG5GNlp3QkFwM1pzb2lzVEdDY3F6STdtUExEZG9FcUpESlJkQStDRDZxRkhscTlFClM0U1FiV05ENXdSN2ltRW03TTF5L0R4N3lsWT0KPTFCUjkKLS0tLS1FTkQgUEdQIE1FU1NBR0UtLS0tLQo=",
+	"value3":"LS0tLS1CRUdJTiBQR1AgTUVTU0FHRS0tLS0tDQpWZXJzaW9uOiBPcGVuUEdQLmpzIHY0LjEwLjgNCkNvbW1lbnQ6IGh0dHBzOi8vb3BlbnBncGpzLm9yZw0KDQp3Y0RNQTZYY3VOQXdXb0xGQVF2L1h1U1pqZEhDWE56UVZzWjRlUXFaYlczd1BvY2dIa0p0aWhBNDhNVkoNClAzTGhRdTVmYnZrb3F6OEFqTEtZZDRPeHRlOHdoL25PSGt3VUN0Z3pFZUFBSnBQa2hQTmx4eVVBZlI0Lw0KMEpCTzRMV3NKbURhbWpVSUlRam45dUkraUpXRFV4ODlmU0djVXVCK2pXV083cUlraHBudlhkZXcyaEtCDQpRU1lZYXEzaHlSNTlNZlVFSzROMnpsUU1uanZFNDliR2hDQnU5eEFKbElLckwxYmFPTkFJQUtsM2puOWUNCmpGNGRPZHhlVml4VjZ4ZGRSZzZaQTBNNWtzeUxLZ2szVlRzbktmU3pzaVM1NFp5Qk93Y0wyR1cvejl5Vw0KanRBZ0RuUEN0R0t0UWVJenJBQzkrdTJSSjNxQkxieDJWWlVaRnZiaVhWM3hBdlFZUkpQT0N6eThFbm8yDQorMlQ2dGZVa1NESzBYZGVHR3hCak9sbjdoMWhIZ3R1c01mbEFjb011c1NNWWZBYmhjemhSOEM2NEVjSGENCkVmYWk0RFY2MHBZNWtPcU1QbkpzMFIrNDB4YkVOL29SQlhKWXhlWFlOVzdtTnVITUJyelk1aHYvelMrOQ0KOEtvZDZ4TGl1bjlxaHZvVWZZUFpxZVZvZ0U3SDA4amVuVlZxK0NsT2REVjdCSkI0WlI5RzBzR1ZBZXhqDQoyMDJHUXFsZ3JiZTR1OUs4VDNwTTE4aWlOdnUxNTJxMVVyMG1BVUJ6aHdCTFp6MWZHWXc4clAyalZMU3ENClNZeUxNRUVYaUsrSHlxaW9kcXNsSVR0cURSSnA2SThKc3ZqWW9MbXh1aUFDWXJzRE5CV0w5eHcwSW0yNw0KcEFPM3hlQWU3U1hLakpXTnFlZ2ZZcEtrMkZZdmpnbUl5VSs3TEhUM1Y4akFWQnpvVWo2MFlDUDRJb251DQpQYU1PazNkZlJFQzNoQ25uem5RUnhyd1ViaXY4TnRDYmc5bkp2b3pka2ZJZkxqbmNIdjl5dExpNmhGMEsNCjdoUzZEQjZSVHVVeGFRYU1vZGtZcEZnRHdTMlhyZ3RmYWRYSTBwY0x0M0ppbU91ZEVYMVFnN3J5d1dFUQ0KbEdMd2lWZkpydjNqN3VmVDVrTHBiMWRabjVxZVcwTEJlaXBjM2RlZkNUdzBWWU5lOWhBVWtZd3hmNWtvDQpla2NGRFpSWFRWRUpFT0duRXRrRWhnL2lWSHNVQXBwNUlFb1lYY0cwZHR2enl3dmFOQjN3aUk3amRCMFENCis0MnVRYnBCR2swSURTSmdhK2U1ajBSNXM0dUFPWW51NDd3cnc5eGg5NFpyNGxQdVY1UkhZaEkvdm5lLw0KOGFPeW42eW9CMHJSalh2NDhLcWYvbHJxZXV4S0FId0xpL1c5Rzd3T3FYTVZiMmZkVkNmRFB4RWlZbmhRDQpqK2xxNEJaSGR5VE03RjJZUmZySlVWd1ZQemlGL1Rtd0d2VDRtcERjMDJ4R1RsQm5uQWtBYXdmVDFtQ24NCmNKcy9oMHM4STdyQjJ2ZTBlVk0xME5qTWdWcUhPUm5GNk10MjNwUDNGZDBWMkJ5NE5WZzY1amdYMTRSTg0Ka0xDQWkxRENmcUlZTWFKYzhVY1BxVll4V2U0cXM0TzZidHlHKzNwZUYyYXdTMVVvVU1RUGVSWk5zUHlFDQpJNWp5WHJuVWpwYXVlQmJNYTlPVGNpUlhqQ3Z4aUxyQ1k2NDIxY0JQTG13NVR1Vkxmcm56RzR4ek5iczENCnhQWTZ5VFgzb1hhSw0KPXc4eW8NCi0tLS0tRU5EIFBHUCBNRVNTQUdFLS0tLS0NCg=="
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="base64-decryption" doc:id="468d1752-4465-4c70-ba65-c0cd7bcea0ee">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+import fromBase64 from dw::core::Binaries
+output application/octet-stream
+---
+fromBase64(payload.value3)]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<crypto:pgp-decrypt doc:name="Pgp decrypt" doc:id="b0ce85c2-52f3-4054-9b2f-fbd0b54d6fa9" config-ref="Crypto_Pgp" />
+	</flow>
+	<flow name="TEST3" doc:id="68e356d9-4d5d-4c37-8bad-8cd8ce1601d9" >
+		<http:listener doc:name="Listener" doc:id="633107e6-dafa-46f1-8305-8ac5dbd8c1e2" config-ref="HTTP_Listener_config" path="/TEST3" />
+		<ee:transform doc:name="Copy_of_base64-decryption" doc:id="225212b9-0d8f-4b98-a35d-efb60408d278">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+import fromBase64 from dw::core::Binaries
+output application/octet-stream
+---
+fromBase64(payload)]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<crypto:pgp-decrypt doc:name="Pgp decrypt" doc:id="503d53d6-c98d-499a-ad52-7f06794f0e47" config-ref="Crypto_Pgp" >
+		</crypto:pgp-decrypt>
+	</flow>
+	<flow name="TEST4" doc:id="28782f54-4900-4333-9819-0504d8f07f2e" >
+		<http:listener doc:name="Listener" doc:id="1f9f08cc-7d7f-4dea-85b5-b7310a1281ec" config-ref="HTTP_Listener_config" path="/TEST4" />
+		<ee:transform doc:name="Transform Message" doc:id="93064e16-3994-429d-91f3-182fc4300a17" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+import java!com::axa::StaticClass
+output application/java
+
+var v1 = StaticClass::getStaticValue1()
+
+var result = if (v1 == "0" ) (StaticClass::setStaticValue1("1")) else ("5")
+
+---
+result
+
+
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="TEST6" doc:id="0df89fa7-e7e6-4cc6-94ac-8c6bc079ea1e" >
+		<http:listener doc:name="Listener" doc:id="af9716d0-33a8-4318-af25-0c0bacfd2bb8" config-ref="HTTP_Listener_config" path="/TEST6" />
+		<ee:transform doc:name="Transform Message" doc:id="a2823d14-56b5-43cd-9e80-afbdac95cc44" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[output application/json
+var policyNoList = readUrl("classpath://jsonFiles/xmlList.json","application/json")
+//var encryptedPN = vars.encryptedPNVar
+---
+0 to 100 map {
+	"$$": (policyNoList filter($.encryptedStr == "6MYxyQpopB+4WUjQYmUiEw=="))[0].billNo default ""
+}
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="TEST7" doc:id="eea72bfa-de0f-4262-9917-24d3e180827f" >
+		<http:listener doc:name="Listener" doc:id="211af947-35cd-4ec8-b59c-d769b2d6fe9b" config-ref="HTTP_Listener_config" path="/TEST7" />
+		<ee:transform doc:name="Transform Message" doc:id="184eea75-0d47-4ebd-83c5-61362b76dfbd" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+import java!com::axa::StaticClass
+output application/json
+
+var v1 = StaticClass::setDoctor([{"d1":"d1v","d2":{"dd1":"dd1v","dd2":["dd2v1","dd2v2"]}}])
+var v2 = StaticClass::getDoctor()
+---
+v2
+
+
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>

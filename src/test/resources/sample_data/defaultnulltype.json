@@ -1,0 +1,72 @@
+[
+    {
+        "policyNumber": "503-4381789",
+        "planCode": "WM01",
+        "benefitId": "GOC",
+        "coverageId": "Ocvisit",
+        "date": "21/09/2023"
+    },
+    {
+        "policyNumber": "503-4381763",
+        "planCode": "WM01",
+        "benefitId": "GOC",
+        "coverageId": "Ocvisit",
+        "date": "21/09/2023"
+    },
+    {
+        "policyNumber": "503-4381789",
+        "planCode": "WM01",
+        "benefitId": "GOC",
+        "coverageId": "Ocvisit",
+        "date": "22/09/2023"
+    },
+    {
+        "policyNumber": "503-4381789",
+        "planCode": "WM01",
+        "benefitId": "GOC",
+        "coverageId": "Ocvisit",
+        "date": "21/09/2024"
+    },
+    {
+        "policyNumber": "503-4381763",
+        "planCode": "WM01",
+        "benefitId": "GOC",
+        "coverageId": "Ocvisit",
+        "date": "21/09/2024"
+    },
+    {
+        "policyNumber": "503-4381789",
+        "planCode": "WM01",
+        "benefitId": "GOC",
+        "coverageId": "Ocvisit",
+        "date": "22/09/2024"
+    },
+    {
+        "policyNumber": "503-4381763",
+        "planCode": "WM01",
+        "benefitId": "GOC",
+        "coverageId": "Ocvisit",
+        "date": "23/09/2024"
+    },
+    {
+        "policyNumber": "503-4381763",
+        "planCode": "WM01",
+        "benefitId": "GOC",
+        "coverageId": "Ocvisit",
+        "date": "24/09/2024"
+    },
+    {
+        "policyNumber": "503-4381763",
+        "planCode": "WM01",
+        "benefitId": "GOC",
+        "coverageId": "Ocvisit",
+        "date": "25/09/2024"
+    },
+    {
+        "policyNumber": "503-4381789",
+        "planCode": "WM01",
+        "benefitId": "GOC",
+        "coverageId": "Ocvisit",
+        "date": "26/09/2024"
+    }
+]

@@ -1,0 +1,41 @@
+{
+  "retrievePaymentTransactionListResponse": {
+    "paymentTransaction": [
+      {
+        "paymentReferenceId": "BCR0100000213037",
+        "policyNumber": "505-0000001",
+        "transactionDateTime": "2019-01-01 23:59:59.0",
+        "transactionCurrencyCode": "HKD",
+        "transactionAmount": "525600.56",
+        "transactionStatusCode": "S",
+        "paymentMethodCode": null,
+        "transactionType": "NB",
+        "channelCode": "IBUY",
+        "netPremiumAmount": "525600.56",
+        "serviceChargePaid": null,
+        "exchangeRate": "76",
+        "exchangeRateDateTime": "2019-01-15 00:00:00.0",
+        "merchantId": "11063000043",
+        "gatewayCode": "MPGS",
+        "gatewayResponseDesc": null,
+        "jetcoApprovalCode": null,
+        "unionPayRespCode": null,
+        "cardType": "master",
+        "fpsPayerName": null,
+        "serviceChargeRate": null,
+        "jetcoECI": null,
+        "authenticationCode": null,
+        "cardExpiryDate": null,
+        "entity": "LHK",
+        "isCoBrand": "coBrand",
+        "couponCode": null,
+        "discountCurrency": null,
+        "sundryAccount": null,
+        "couponRedeemDateTime": null,
+        "creditCardNumber": null,
+        "bankCode": "IOCO",
+        "policyCurrencyCode": "HKD"
+      }
+    ]
+  }
+}

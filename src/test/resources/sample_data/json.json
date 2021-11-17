@@ -1,0 +1,92 @@
+{
+  "retrievePolicyDetailsResponse": {
+    "policy": [
+      {
+        "policyNumber": "9876543210",
+        "firstName": null,
+        "lastName": "RTFU & NOPXF",
+        "firstNameinLocalLang": null,
+        "lastNameinLocalLang": null,
+        "policyEffectiveDate": "20131128",
+        "policyIssueDate": "20131206",
+        "policyExpirationDate": "20861128",
+        "policyTerminationDate": null,
+        "paymentModeCode": "M",
+        "issuingBranchCode": null,
+        "policyLocationCode": "MCP",
+        "producingAgentCode": "055569",
+        "servicingAgentCode": "055569",
+        "producingAgentCode2": null,
+        "servicingAgentCode2": null,
+        "actualServicingAgentCode": "055569",
+        "actualServicingAgentCode2": null,
+        "policyCurrencyCode": "HKD",
+        "entityCode": "LHK",
+        "lob": "LIFE",
+        "productCode": "PULF25",
+        "companyCode": "5",
+        "policyRenewalDate": null,
+        "memberNumber": null,
+        "dependentNumber": null,
+        "premiumDueDate": null,
+        "policyPaidToDate": "20230928",
+        "policyVersion": null,
+        "productDescription": "PULSAR INVESTMENT INSURANCE   PLAN (25 YEARS)",
+        "previousPolicyNumber": null,
+        "businessSourceChannelCode": null,
+        "originalInceptionDate": "20131205",
+        "coverNoteNumber": null,
+        "transactionNumber": null,
+        "policyStatusCode": "1",
+        "planCode": "PULF25",
+        "planDescription": "PULSAR INVESTMENT INSURANCE   PLAN (25 YEARS)",
+        "isSinglePremium": null,
+        "planCodeDescriptionInLocalLang": null,
+        "lifePolicy": {
+          "paymentMethod": "M",
+          "cashValueSumInsuredAmount": null,
+          "accDivAmount": "0",
+          "accDivInterest": "0",
+          "futurePremDepositAmount": "0",
+          "futurePremDepositInterest": "0",
+          "loanBalanceAmount": "0",
+          "loanBalanceInterestAmount": "0",
+          "specialInvBonus": null,
+          "cashValueOnRevBonus": null,
+          "couponAmount": "0",
+          "couponInterest": "0",
+          "faceValueSumInsuredAmount": "0",
+          "levyPremium": null,
+          "surrenderValue": "5155.4",
+          "collectedLevyPremiumInPolicyCurrency": null,
+          "requiredPremiumAmount": "2000",
+          "consultantFeeCode": "Y",
+          "totalModalPremiumPaid": "2000",
+          "insuredDetails": {
+            "firstNameInLocalLang": null,
+            "firstName": null,
+            "lastNameInLocalLang": "NAME503-8350558",
+            "lastName": "RTFU NOPXF"
+          },
+          "beneficiaryDetails": [
+            {
+              "firstNameInLocalLang": "",
+              "firstName": "",
+              "lastNameInLocalLang": "",
+              "lastName": ""
+            }
+          ],
+          "assigneeDetails": [
+            {
+              "firstNameInLocalLang": null,
+              "firstName": null,
+              "lastNameInLocalLang": null,
+              "lastName": null,
+              "assigneeType": "C"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
